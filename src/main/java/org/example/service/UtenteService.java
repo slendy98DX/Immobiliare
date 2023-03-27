@@ -10,6 +10,7 @@ import org.example.controllers.dto.RegistrationResponseDto;
 import org.example.entity.Utente;
 import org.example.exception.InvalidActivationCodeException;
 import org.example.exception.UserNotFoundException;
+import org.example.repository.RuoloRepository;
 import org.example.repository.UtenteRepository;
 import org.example.utility.EmailSender;
 import org.example.utility.StringUtility;
@@ -30,6 +31,8 @@ public class UtenteService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	@Autowired
+	private RuoloRepository ruoloRepository;
 	
 	public RegistrationResponseDto register(RegistrationRequestDto request) {
 		Utente utente = userRequestToEntity(request);
@@ -55,13 +58,14 @@ public class UtenteService {
 	}
 
 	
-    private Utente userRequestToEntity(RegistrationRequestDto request){
+    private Utente userRequestToEntity(RegistrationRequestDto request) {
     	Utente utente = new Utente();
     	utente.setEmail(request.getEmail());
     	utente.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
     	utente.setUsername(request.getUsername());
     	utente.setActivationCode(StringUtility.generateRandomString(6));
 		utente.setActive(false);
+		utente.setRuolo(ruoloRepository.findByNomeRuolo("ROLE_UTENTE"));
     	return utente;
     }
 

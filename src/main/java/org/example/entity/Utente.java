@@ -2,6 +2,7 @@ package org.example.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +19,9 @@ public class Utente {
 	private String activationCode;
 	
 	private Boolean active;
+	
+	@ManyToOne
+	private Ruolo ruolo;
 	
 	public String getUsername() {
 		return username;
@@ -59,6 +63,12 @@ public class Utente {
 		this.active = active;
 	}
 	
+	public Ruolo getRuolo() {
+		return ruolo;
+	}
 	
+	public void setRuolo(Ruolo ruolo) {
+		this.ruolo = ruolo;
+	}
 
 }
