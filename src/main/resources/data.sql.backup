@@ -1,0 +1,3 @@
+-- INSERT INTO ruolo (nome_ruolo) VALUES ('ROLE_AGENZIA');
+-- INSERT INTO ruolo (nome_ruolo) VALUES ('ROLE_UTENTE');
+-- INSERT INTO ruolo (nome_ruolo) VALUES ('ROLE_AMMINISTRATORE');
