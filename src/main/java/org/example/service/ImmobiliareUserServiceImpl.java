@@ -26,7 +26,7 @@ public class ImmobiliareUserServiceImpl implements UserService {
 			if(utente.getActive().booleanValue()) {
 				userDetails.setUsername(utente.getUsername());
 				userDetails.setPassword(utente.getPassword());
-				userDetails.setRoles(Arrays.asList("ROLE_USER"));
+				userDetails.setRoles(Arrays.asList(utente.getRuolo().getNomeRuolo()));
 				return userDetails;				
 			} else {
 				return null;

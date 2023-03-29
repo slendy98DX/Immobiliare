@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.pasqualecavallo.studentsmaterial.authorization_framework.filter.AuthenticationContext;
 import it.pasqualecavallo.studentsmaterial.authorization_framework.filter.AuthenticationContext.Principal;
 import it.pasqualecavallo.studentsmaterial.authorization_framework.security.RoleSecurity;
+import it.pasqualecavallo.studentsmaterial.authorization_framework.security.ZeroSecurity;
 
 @RestController
 @RequestMapping("/immobile")
@@ -28,11 +29,13 @@ public class ImmobileController {
     private ImmobileService immobileService;
 
     @PostMapping
+    @RoleSecurity("ROLE_AGENZIA")
     public ImmobileResponseDto postImmobile(@RequestBody ImmobileRequestDto request) {
         return immobileService.postImmobile(request);
     }
 
     @GetMapping("/{id}")
+    @ZeroSecurity
     public ImmobileResponseDto getImmobile(@PathVariable("id") Long id) {
         return immobileService.getImmobile(id);
     }
@@ -40,12 +43,14 @@ public class ImmobileController {
 
 
     @GetMapping("/page")
+    @ZeroSecurity
     public List<ImmobileResponseDto> getImmobilePage(@RequestParam Integer page, @RequestParam Integer pageSize) {
         return immobileService.getImmobilePage(page, pageSize);
 
     }
 
     @PutMapping("/{id}")
+    @RoleSecurity("ROLE_AGENZIA")
     public ImmobileResponseDto putImmobile(@PathVariable("id") Long id,
                                            @RequestBody ImmobileRequestDto request)  {
         return immobileService.putImmobile(id,request);
@@ -53,6 +58,7 @@ public class ImmobileController {
 
 
     @DeleteMapping("/{id}")
+    @RoleSecurity(value = {"ROLE_AGENZIA", "ROLE_AMMINISTRATORE"})
     public ImmobileResponseDto delete(@PathVariable("id") Long id) {
         return immobileService.delete(id);
     }
