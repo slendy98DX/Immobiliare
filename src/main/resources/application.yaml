@@ -15,7 +15,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: studiomedico.gruppo1.java8@gmail.com
-    password: csrenoniyugittmc
+    password: 
     properties:
       mail:
         smtp:
