@@ -3,6 +3,7 @@ package org.example.exception.advice;
 import org.example.controllers.dto.BaseResponse;
 import org.example.controllers.dto.BaseResponse.Status;
 import org.example.exception.InvalidActivationCodeException;
+import org.example.exception.RequestAlreadyPresentException;
 import org.example.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,6 +36,19 @@ public class GlobalExceptionHandler {
 			br.setErrorMessage(e.getMessage());
 		} else {
 			br.setErrorMessage("USER_NOT_FOUND");
+		}
+		return br;
+	}
+
+	@ExceptionHandler(RequestAlreadyPresentException.class)
+	@ResponseStatus(HttpStatus.CONFLICT)
+	public BaseResponse requestAlreadyPresentException(RequestAlreadyPresentException e) {
+		BaseResponse br = new BaseResponse();
+		br.setStatus(Status.KO);
+		if(e.getMessage() != null) {
+			br.setErrorMessage(e.getMessage());
+		} else {
+			br.setErrorMessage("REQUEST_ALREADY_PRESENT");
 		}
 		return br;
 	}
